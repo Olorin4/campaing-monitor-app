@@ -1,42 +1,89 @@
 # Campaign Monitor App
 
-A simple web app that allows users to view, add, and remove subscribers from a Campaign Monitor mailing list.
+A simple web application that allows users to view, add, and remove subscribers from a Campaign Monitor mailing list using their public API.
 
 ---
 
-## 🚀 Features
+## 🔧 Requirements
 
-- View active subscribers
-- Add new subscribers (email + name)
+- Node.js (v18+)
+- npm
+- PM2 (for production use)
+- Nginx (optional, for reverse proxy)
+- A Campaign Monitor account with:
+    - API Key
+    - List ID
+
+---
+
+## 🔪 Features
+
+- View subscribers
+- Add new subscribers with form validation
 - Remove existing subscribers
-- Fully dynamic frontend with no page reloads
+- Fully dynamic frontend (no reloads)
+- Clean structure: separate backend logic, validation, and routes
 
 ---
 
-## 🧱 Tech Stack
+## 🚀 Getting Started
 
-- **Frontend:** HTML, CSS, JavaScript (Vanilla)
-- **Backend:** Node.js, Express.js
-- **API:** Campaign Monitor API v3.3
+To use the app, simply open a browser and visit:
 
----
+```
+http://5.161.229.218
+```
 
-## 📋 Short Report
-
-- **Process:** Developed backend API endpoints to communicate with Campaign Monitor, and a frontend interface to consume those APIs dynamically.
-- **Decisions:** Used vanilla JS for minimal overhead; opted to serve frontend via Express for simplicity.
-- **Challenges:** Campaign Monitor’s authentication required base64 encoding; solved with built-in Node methods.
-- **Tools:** Node.js, Fetch API, Express, Git, Prettier + ESLint (for code quality)
+You'll be able to view, add, and remove subscribers directly through the web interface. No setup required. _(Note: this link will remain open for a limited time.)_
 
 ---
 
-## 📬 Author
+## 🛠 Developer Setup
 
-**Nikos Kalaitzidis**  
-[GitHub](https://github.com/Olorin4)
+If you'd like to run the app locally:
+
+1. **Clone the repository:**
+
+```bash
+git clone git@github.com:Olorin4/campaign-monitor-app.git
+cd campaign-monitor-app
+```
+
+2. **Install dependencies:**
+
+```bash
+npm install
+```
+
+3. **Configure environment (optional):**
+
+If you want to use environment variables, create a `.env` file in the root with:
+
+```env
+API_KEY=your_campaign_monitor_api_key
+LIST_ID=your_list_id
+PORT=3005
+```
+
+4. **Run the app (development mode):**
+
+```bash
+npm start
+```
+
+Or use PM2 for production:
+
+```bash
+pm install -g pm2
+pm2 start backend/app.js --name campaign-monitor
+pm2 save
+pm2 startup
+```
+
+The app will be accessible at:
+
+```
+http://localhost:3005
+```
 
 ---
-
-## 📝 License
-
-This project is licensed under the ISC License.
