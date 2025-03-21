@@ -22,9 +22,7 @@ async function fetchSubscribers() {
     try {
         const res = await fetch("http://localhost:3005/subscribers");
 
-        if (!res.ok) {
-            throw new Error(`HTTP error! Status: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
         const subscribersData = await res.json();
         renderSubscribers(subscribersData.Results);
@@ -41,13 +39,12 @@ async function addSubscriber(email, name) {
             body: JSON.stringify({ email, name }),
         });
 
-        if (!res.ok) {
-            throw new Error(`HTTP error! Status: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
         setTimeout(fetchSubscribers, 1500);
     } catch (error) {
         console.error("Error adding subscriber:", error);
+        alert("Error adding subscriber.");
     }
 }
 
@@ -60,13 +57,12 @@ async function removeSubscriber(email) {
             }
         );
 
-        if (!res.ok) {
-            throw new Error(`HTTP error! Status: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
         setTimeout(fetchSubscribers, 1500);
     } catch (error) {
         console.error("Error removing subscriber:", error);
+        alert("Error deleting subscriber.");
     }
 }
 

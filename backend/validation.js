@@ -17,7 +17,7 @@ export function validateSubscriber(email, name) {
         };
     }
 
-    const nameRegex = /^[A-Za-z' -]{2,50}$/;
+    const nameRegex = /^[A-Za-z0-9' -]{2,50}$/;
     if (!nameRegex.test(name)) {
         console.log("Name validation failed for:", name);
         return { valid: false, message: "Name contains invalid characters." };

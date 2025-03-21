@@ -1,6 +1,7 @@
 // backend/controller.js
 
 import fetch from "node-fetch";
+import { validateSubscriber } from "./validation.js";
 
 const API_KEY =
     "vCcTEiNcSifcyFMGJTW/92iUaXdHYF6ox0VI4Qr3TGMjy3kIH/luT1+vw2zU1ue9RCO/wu8XGEGXgs7oNleLVrbRnZwTv0DWFkO5jFWM4S1QA8AZmNLluMzP47hJ28pmiZKtCBF9QOFbnrwC07iQFQ==";
@@ -39,7 +40,16 @@ export async function getSubscribers(req, res) {
 }
 
 export async function addSubscriber(req, res) {
-    const { email, name } = req.body;
+    let { email, name } = req.body;
+
+    // Trim first to ensure accurate validation
+    email = email.trim();
+    name = name.trim();
+
+    // Validate incoming form data after trimming
+    const validationResult = validateSubscriber(email, name);
+    if (!validationResult.valid)
+        return res.status(400).json({ error: validationResult.message });
 
     try {
         const response = await fetch(
