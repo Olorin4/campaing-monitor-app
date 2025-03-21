@@ -1,6 +1,7 @@
 /* frontend/app.js */
 
 function renderSubscribers(subscribers) {
+    console.log("Rendering subscribers:", subscribers);
     const list = document.getElementById("subscriberList");
     list.innerHTML = "";
 
@@ -34,17 +35,17 @@ async function fetchSubscribers() {
 
 async function addSubscriber(email, name) {
     try {
-        const response = await fetch("http://localhost:3005/subscribers", {
+        const res = await fetch("http://localhost:3005/subscribers", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, name }),
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+        if (!res.ok) {
+            throw new Error(`HTTP error! Status: ${res.status}`);
         }
 
-        await fetchSubscribers();
+        setTimeout(fetchSubscribers, 1500);
     } catch (error) {
         console.error("Error adding subscriber:", error);
     }
@@ -52,29 +53,33 @@ async function addSubscriber(email, name) {
 
 async function removeSubscriber(email) {
     try {
-        const response = await fetch(
+        const res = await fetch(
             `http://localhost:3005/subscribers/${encodeURIComponent(email)}`,
             {
                 method: "DELETE",
             }
         );
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+        if (!res.ok) {
+            throw new Error(`HTTP error! Status: ${res.status}`);
         }
 
-        await fetchSubscribers();
+        setTimeout(fetchSubscribers, 1500);
     } catch (error) {
         console.error("Error removing subscriber:", error);
     }
 }
 
-document.getElementById("subscriberForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const email = document.getElementById("email").value;
-    const name = document.getElementById("name").value;
-    addSubscriber(email, name);
-    e.target.reset();
-});
+document
+    .getElementById("subscriberForm")
+    .addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        const name = document.getElementById("name").value;
 
-fetchSubscribers();
+        await addSubscriber(email, name);
+        e.target.reset();
+    });
+
+// initial load
+document.addEventListener("DOMContentLoaded", fetchSubscribers);

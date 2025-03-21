@@ -10,7 +10,7 @@ const BASE_URL = "https://api.createsend.com/api/v3.3";
 export async function getSubscribers(req, res) {
     try {
         const response = await fetch(
-            `${BASE_URL}/lists/${LIST_ID}/active.json`,
+            `${BASE_URL}/lists/${LIST_ID}/active.json?timestamp=${Date.now()}`,
             {
                 method: "GET",
                 headers: {
@@ -56,13 +56,15 @@ export async function addSubscriber(req, res) {
                     EmailAddress: email,
                     Name: name,
                     ConsentToTrack: "Yes",
+                    Resubscribe: true,
                 }),
             }
         );
 
         if (!response.ok) {
+            const errorDetails = await response.text();
             throw new Error(
-                `Campaign Monitor API error: ${response.statusText}`
+                `Campaign Monitor API error: ${response.statusText}. Details: ${errorDetails}`
             );
         }
 
