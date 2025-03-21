@@ -41,7 +41,10 @@ async function addSubscriber(email, name) {
 
         if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
-        setTimeout(fetchSubscribers, 1500);
+        setTimeout(() => {
+            console.log("📡 Fetching subscribers after delay...");
+            fetchSubscribers();
+        }, 1500);
     } catch (error) {
         console.error("Error adding subscriber:", error);
         alert("Error adding subscriber.");
@@ -59,7 +62,10 @@ async function removeSubscriber(email) {
 
         if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
-        setTimeout(fetchSubscribers, 1500);
+        setTimeout(() => {
+            console.log("📡 Fetching subscribers after delay...");
+            fetchSubscribers();
+        }, 1500);
     } catch (error) {
         console.error("Error removing subscriber:", error);
         alert("Error deleting subscriber.");
