@@ -1,7 +1,7 @@
 /* frontend/style.css */
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: "Arial", sans-serif;
     background-color: #f9f9f9;
     color: #333;
     margin: 0;
@@ -10,14 +10,14 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
-  
-  h1 {
+}
+
+h1 {
     margin-top: 20px;
     color: #444;
-  }
-  
-  form {
+}
+
+form {
     margin: 20px;
     padding: 20px;
     background-color: #ffffff;
@@ -25,17 +25,17 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     gap: 10px;
-  }
-  
-  input[type="email"],
-  input[type="text"] {
+}
+
+input[type="email"],
+input[type="text"] {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ddd;
     width: 200px;
-  }
-  
-  button {
+}
+
+button {
     padding: 10px 15px;
     background-color: #007bff;
     color: white;
@@ -43,20 +43,20 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  button:hover {
+}
+
+button:hover {
     background-color: #0056b3;
-  }
-  
-  ul {
+}
+
+ul {
     list-style: none;
     padding: 0;
     width: 80%;
     max-width: 500px;
-  }
-  
-  li {
+}
+
+li {
     background-color: #ffffff;
     padding: 10px;
     margin-bottom: 8px;
@@ -65,12 +65,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  
-  li button {
+}
+
+li button {
     background-color: #dc3545;
-  }
-  
-  li button:hover {
+}
+
+li button:hover {
     background-color: #c82333;
-  }
+}

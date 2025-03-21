@@ -1,0 +1,24 @@
+Hello NICK,
+
+It was great meeting with you. Following our discussion, we would like to invite you to the next phase of our selection process. Please find below the exercise we need you to implement in order for us to understand your technical level. You need to deliver this to us by Sunday end of the day.
+
+We will evaluate your deliverable based on:
+UI
+Ajax
+Ease of use
+Code structure (readability, software engineering principles, design patterns, Inversion of Control, OOP, etc)
+
+We will also take into account:
+Documentation and implementation instructions
+If you have deployed this to a server
+Form validation
+Time
+
+Please come back to me if you have any questions.
+
+Thank you,
+Margera
+
+
+--
+Melina Koumidou
