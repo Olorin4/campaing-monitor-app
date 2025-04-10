@@ -52,7 +52,11 @@ async function addSubscriber(email, name) {
         });
 
         trackAddSubscriber(email, !res.ok);
-        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+        if (!res.ok) {
+            throw new Error(
+                `Add failed (${res.status}): ${res.text || "No response body"}`
+            );
+        }
 
         setTimeout(() => {
             console.log("📡 Fetching subscribers after delay...");
@@ -74,7 +78,11 @@ async function removeSubscriber(email) {
             }
         );
 
-        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+        if (!res.ok) {
+            throw new Error(
+                `Remove failed (${res.status}): ${res.text || "No response body"}`
+            );
+        }
 
         setTimeout(() => {
             console.log("📡 Fetching subscribers after delay...");

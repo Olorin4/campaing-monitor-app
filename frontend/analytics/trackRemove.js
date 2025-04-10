@@ -27,7 +27,7 @@ export function trackRemoveSubscriber(email) {
     const position = `${index}/${total}`;
     const emailType = isGenericEmail(email);
 
-    window.gtag("event", "remove_subscriber", {
+    window.gtag("event", "click_remove_subscriber", {
         event_category: "subscriber",
         position: position,
         email_type: emailType,
