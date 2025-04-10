@@ -12,8 +12,10 @@ export function handleFocusEnd() {
     const timeInField = Date.now() - focusStartTime;
     focusStartTime = null; // reset
 
-    window.gtag("event", "focus_duration", {
-        event_category: "form",
-        duration_ms: timeInField,
-    });
+    if (typeof window.gtag === "function") {
+        window.gtag("event", "focus_duration", {
+            event_category: "form",
+            duration_ms: timeInField,
+        });
+    }
 }

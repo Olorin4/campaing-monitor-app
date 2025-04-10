@@ -25,10 +25,12 @@ export function trackAddSubscriber(email, error = false) {
 
     const emailType = isGenericEmail(email);
 
-    window.gtag("event", "click_add_subscriber", {
-        event_category: "form",
-        time_to_submit: timeToSubmit,
-        email_type: emailType,
-        error: error,
-    });
+    if (typeof window.gtag === "function") {
+        window.gtag("event", "add_subscriber", {
+            event_category: "form",
+            time_to_submit: timeToSubmit,
+            email_type: isGenericEmail(email),
+            error: error,
+        });
+    }
 }

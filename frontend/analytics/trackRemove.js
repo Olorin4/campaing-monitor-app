@@ -18,18 +18,18 @@ export function trackRemoveSubscriber(email) {
     let index = -1;
 
     listItems.forEach((li, i) => {
-        if (li.textContent.includes(email)) {
-            index = i + 1;
-        }
+        if (li.textContent.includes(email)) index = i + 1;
     });
 
     const total = listItems.length;
     const position = `${index}/${total}`;
     const emailType = isGenericEmail(email);
 
-    window.gtag("event", "click_remove_subscriber", {
-        event_category: "subscriber",
-        position: position,
-        email_type: emailType,
-    });
+    if (typeof window.gtag === "function") {
+        window.gtag("event", "remove_subscriber", {
+            event_category: "subscriber",
+            position: position,
+            email_type: emailType,
+        });
+    }
 }
