@@ -6,7 +6,8 @@ import { trackApiError } from "./analytics/trackError.js";
 import { setSubscriberCount } from "./analytics/setUserProps.js";
 import { trackFocus } from "./analytics/trackFocus.js";
 
-const API_URL = window.location.origin;
+const isLocal = window.location.hostname === "localhost";
+const API_URL = isLocal ? "http://localhost:3005" : window.location.origin;
 
 function renderSubscribers(subscribers) {
     console.log("Rendering subscribers:", subscribers);
