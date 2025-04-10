@@ -1,4 +1,4 @@
-name: 🚀 Deploy via SCP (no git on server)
+name: 🚀 Deploy to server with rsync
 
 on:
     push:

@@ -53,8 +53,9 @@ async function addSubscriber(email, name) {
 
         trackAddSubscriber(email, !res.ok);
         if (!res.ok) {
+            const errorBody = await res.text(); // <- this is important
             throw new Error(
-                `Add failed (${res.status}): ${res.text || "No response body"}`
+                `Add failed (${res.status}): ${errorBody || "No response body"}`
             );
         }
 
@@ -79,8 +80,9 @@ async function removeSubscriber(email) {
         );
 
         if (!res.ok) {
+            const errorBody = await res.text();
             throw new Error(
-                `Remove failed (${res.status}): ${res.text || "No response body"}`
+                `Remove failed (${res.status}): ${errorBody || "No response body"}`
             );
         }
 
