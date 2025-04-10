@@ -6,6 +6,8 @@ import { trackApiError } from "./analytics/trackError.js";
 import { setSubscriberCount } from "./analytics/setUserProps.js";
 import { trackFocus } from "./analytics/trackFocus.js";
 
+const API_URL = window.location.origin;
+
 function renderSubscribers(subscribers) {
     console.log("Rendering subscribers:", subscribers);
     const list = document.getElementById("subscriberList");
