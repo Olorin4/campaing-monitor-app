@@ -25,7 +25,7 @@ jobs:
             - name: 🚀 Restart app on Hetzner
               run: |
                   ssh -o StrictHostKeyChecking=no NickKalas@5.161.229.218 << 'EOF'
-                    cd ~/apps/campaign-monitor-app
+                    cd ~/apps/campaign-monitor
                     echo "Deployed app.js modified:"
                     stat frontend/app.js
                     npm install
