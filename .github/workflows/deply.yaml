@@ -1,0 +1,31 @@
+name: 🚀 Deploy via SCP (no git on server)
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: 📥 Checkout repository
+              uses: actions/checkout@v3
+
+            - name: 🔐 Set up SSH
+              uses: webfactory/ssh-agent@v0.9.0
+              with:
+                  ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+            - name: 🚚 Sync files to Hetzner
+              run: |
+                  rsync -avz --delete --exclude=".git" ./ NickKalas@5.161.229.218:~/campaign-monitor-app
+
+            - name: 🚀 Restart app on Hetzner
+              run: |
+                  ssh -o StrictHostKeyChecking=no NickKalas@5.161.229.218 << 'EOF'
+                    cd ~/campaign-monitor-app
+                    npm install
+                    pm2 restart campaign-monitor
+                  EOF
