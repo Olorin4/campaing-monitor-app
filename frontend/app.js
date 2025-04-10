@@ -32,7 +32,7 @@ function renderSubscribers(subscribers) {
 
 async function fetchSubscribers() {
     try {
-        const res = await fetch("http://localhost:3005/subscribers");
+        const res = await fetch(`${API_URL}/subscribers`);
 
         if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
@@ -46,7 +46,7 @@ async function fetchSubscribers() {
 
 async function addSubscriber(email, name) {
     try {
-        const res = await fetch("http://localhost:3005/subscribers", {
+        const res = await fetch(`${API_URL}/subscribers`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, name }),
@@ -76,7 +76,7 @@ async function addSubscriber(email, name) {
 async function removeSubscriber(email) {
     try {
         const res = await fetch(
-            `http://localhost:3005/subscribers/${encodeURIComponent(email)}`,
+            `${API_URL}/subscribers/${encodeURIComponent(email)}`,
             {
                 method: "DELETE",
             }
