@@ -1,5 +1,11 @@
 /* frontend/app.js */
 
+import { trackTypingStart, trackAddSubscriber } from "./analytics/trackAdd.js";
+import { trackRemoveSubscriber } from "./analytics/trackRemove.js";
+import { trackApiError } from "./analytics/trackError.js";
+import { setSubscriberCount } from "./analytics/setUserProps.js";
+import { trackFocus } from "./analytics/trackFocus.js";
+
 function renderSubscribers(subscribers) {
     console.log("Rendering subscribers:", subscribers);
     const list = document.getElementById("subscriberList");
@@ -11,7 +17,10 @@ function renderSubscribers(subscribers) {
 
         const removeBtn = document.createElement("button");
         removeBtn.textContent = "Remove";
-        removeBtn.onclick = () => removeSubscriber(sub.EmailAddress);
+        removeBtn.onclick = () => {
+            trackRemoveSubscriber(sub.EmailAddress);
+            removeSubscriber(sub.EmailAddress);
+        };
 
         li.appendChild(removeBtn);
         list.appendChild(li);
@@ -24,8 +33,9 @@ async function fetchSubscribers() {
 
         if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
-        const subscribersData = await res.json();
-        renderSubscribers(subscribersData.Results);
+        const data = await res.json();
+        renderSubscribers(data.Results);
+        setSubscriberCount(data.Results.length);
     } catch (error) {
         console.error("Error fetching subscribers:", error);
     }
@@ -39,6 +49,7 @@ async function addSubscriber(email, name) {
             body: JSON.stringify({ email, name }),
         });
 
+        trackAddSubscriber(email, !res.ok);
         if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
         setTimeout(() => {
@@ -47,6 +58,7 @@ async function addSubscriber(email, name) {
         }, 1500);
     } catch (error) {
         console.error("Error adding subscriber:", error);
+        trackApiError("add", error.message);
         alert("Error adding subscriber.");
     }
 }
@@ -68,9 +80,14 @@ async function removeSubscriber(email) {
         }, 1500);
     } catch (error) {
         console.error("Error removing subscriber:", error);
+        trackApiError("remove", error.message);
         alert("Error deleting subscriber.");
     }
 }
+
+// Track typing + submission
+document.getElementById("email").addEventListener("input", trackTypingStart);
+document.getElementById("email").addEventListener("focus", trackFocus);
 
 document
     .getElementById("subscriberForm")
