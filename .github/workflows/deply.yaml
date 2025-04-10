@@ -26,6 +26,8 @@ jobs:
               run: |
                   ssh -o StrictHostKeyChecking=no NickKalas@5.161.229.218 << 'EOF'
                     cd ~/campaign-monitor-app
+                    echo "Deployed app.js modified:"
+                    stat frontend/app.js
                     npm install
                     pm2 restart campaign-monitor
                   EOF
