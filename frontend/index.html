@@ -17,6 +17,8 @@
                 }
                 window.gtag = gtag;
 
+                console.log("📈 Google Analytics is now being loaded.");
+
                 gtag("js", new Date());
                 gtag("config", "G-SP6RVW60P1", { debug_mode: true });
                 setTimeout(() => {
@@ -41,7 +43,7 @@
                         name: "Analytical",
                         description:
                             "<p>These cookies allow us to analyze traffic and performance.</p>",
-                        required: true,
+                        required: false,
                         onAccept: function () {
                             console.log("✅ Analytics accepted");
                             loadGoogleAnalytics();
