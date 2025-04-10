@@ -3,7 +3,7 @@
 import { trackTypingStart, trackAddSubscriber } from "./analytics/trackAdd.js";
 import { trackRemoveSubscriber } from "./analytics/trackRemove.js";
 import { trackApiError } from "./analytics/trackError.js";
-import { setSubscriberCount } from "./analytics/setUserProps.js";
+import { setSubscriberProps } from "./analytics/setUserProps.js";
 import { handleFocusStart, handleFocusEnd } from "./analytics/trackFocus.js";
 
 const isLocal = window.location.hostname === "localhost";
@@ -30,6 +30,13 @@ function renderSubscribers(subscribers) {
     });
 }
 
+function getDeviceType() {
+    const ua = navigator.userAgent;
+    if (/mobile/i.test(ua)) return "mobile";
+    if (/tablet/i.test(ua)) return "tablet";
+    return "desktop";
+}
+
 async function fetchSubscribers() {
     try {
         const res = await fetch(`${API_URL}/subscribers`);
@@ -38,7 +45,13 @@ async function fetchSubscribers() {
 
         const data = await res.json();
         renderSubscribers(data.Results);
-        setSubscriberCount(data.Results.length);
+        setTimeout(() => {
+            setSubscriberProps({
+                count: data.Results.length,
+                deviceType: getDeviceType(),
+                userAgent: navigator.userAgent,
+            });
+        }, 2000);
     } catch (error) {
         console.error("Error fetching subscribers:", error);
     }
