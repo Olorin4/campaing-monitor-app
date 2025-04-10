@@ -4,7 +4,7 @@ import { trackTypingStart, trackAddSubscriber } from "./analytics/trackAdd.js";
 import { trackRemoveSubscriber } from "./analytics/trackRemove.js";
 import { trackApiError } from "./analytics/trackError.js";
 import { setSubscriberCount } from "./analytics/setUserProps.js";
-import { trackFocus } from "./analytics/trackFocus.js";
+import { handleFocusStart, handleFocusEnd } from "./analytics/trackFocus.js";
 
 const isLocal = window.location.hostname === "localhost";
 const API_URL = isLocal ? "http://localhost:3005" : window.location.origin;
@@ -104,7 +104,8 @@ async function removeSubscriber(email) {
 
 // Track typing + submission
 document.getElementById("email").addEventListener("input", trackTypingStart);
-document.getElementById("email").addEventListener("focus", trackFocus);
+document.getElementById("email").addEventListener("focus", handleFocusStart);
+document.getElementById("email").addEventListener("blur", handleFocusEnd);
 
 document
     .getElementById("subscriberForm")
