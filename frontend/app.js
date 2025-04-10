@@ -39,19 +39,20 @@ function getDeviceType() {
 
 async function fetchSubscribers() {
     try {
+        console.log("📡 Fetching subscribers...");
         const res = await fetch(`${API_URL}/subscribers`);
 
         if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
         const data = await res.json();
+        console.log("Rendering subscribers");
         renderSubscribers(data.Results);
-        setTimeout(() => {
-            setSubscriberProps({
-                count: data.Results.length,
-                deviceType: getDeviceType(),
-                userAgent: navigator.userAgent,
-            });
-        }, 2000);
+        console.log("Tracking subscribers properties");
+        setSubscriberProps({
+            count: data.Results.length,
+            deviceType: getDeviceType(),
+            userAgent: navigator.userAgent,
+        });
     } catch (error) {
         console.error("Error fetching subscribers:", error);
     }
@@ -75,10 +76,7 @@ async function addSubscriber(email, name) {
             throw new Error(`Add failed (${res.status}): ${cleanMsg}`);
         }
 
-        setTimeout(() => {
-            console.log("📡 Fetching subscribers after delay...");
-            fetchSubscribers();
-        }, 1500);
+        await fetchSubscribers();
     } catch (error) {
         console.error("Error adding subscriber:", error);
         trackApiError("add", error.message);
@@ -104,10 +102,7 @@ async function removeSubscriber(email) {
             throw new Error(`Remove failed (${res.status}): ${cleanMsg}`);
         }
 
-        setTimeout(() => {
-            console.log("📡 Fetching subscribers after delay...");
-            fetchSubscribers();
-        }, 1500);
+        await fetchSubscribers();
     } catch (error) {
         console.error("Error removing subscriber:", error);
         trackApiError("remove", error.message);
