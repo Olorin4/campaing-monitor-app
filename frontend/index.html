@@ -19,12 +19,13 @@
 
                 gtag("js", new Date());
                 gtag("config", "G-SP6RVW60P1", { debug_mode: true });
-
-                const gaScript = document.createElement("script");
-                gaScript.setAttribute("async", "");
-                gaScript.src =
-                    "https://www.googletagmanager.com/gtag/js?id=G-SP6RVW60P1";
-                document.head.appendChild(gaScript);
+                setTimeout(() => {
+                    const gaScript = document.createElement("script");
+                    gaScript.setAttribute("async", "");
+                    gaScript.src =
+                        "https://www.googletagmanager.com/gtag/js?id=G-SP6RVW60P1";
+                    document.head.appendChild(gaScript);
+                }, 1000);
             }
 
             silktideCookieBannerManager.updateCookieBannerConfig({
