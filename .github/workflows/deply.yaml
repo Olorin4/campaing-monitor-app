@@ -20,7 +20,7 @@ jobs:
 
             - name: 🚚 Sync files to Hetzner
               run: |
-                  rsync -avz --delete --exclude=".git" ./ NickKalas@5.161.229.218:~/campaign-monitor-app
+                  rsync -avz -e "ssh -o StrictHostKeyChecking=no" --delete --exclude=".git" ./ NickKalas@5.161.229.218:~/campaign-monitor-app
 
             - name: 🚀 Restart app on Hetzner
               run: |
