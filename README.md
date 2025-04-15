@@ -2,6 +2,8 @@
 
 This project is a full-stack demo of Google Analytics 4 (GA4) custom event tracking, complete with a consent management solution built using [Silktide's Consent Banner](https://silktide.com/consent-manager/). The app simulates a real-world marketing use case, allowing users to subscribe and unsubscribe from a mailing list via integration with the Campaign Monitor API.
 
+Note: You will need an active Campaign Monitor account with API access and a mailing list created. I’ll guide you on how to retrieve your API key and list ID as part of the setup.
+
 ## ✅ Features
 
 - **Manual GA4 integration** (no GTM)
